@@ -177,6 +177,8 @@ Read every returned candidate and report only clear matches. Do not report weak 
 
 ## 9. User Discovery
 
+If the user asks for help writing their self-description, read the [about me guide](references/about-me-guide.md).
+
 Search users:
 
 ```bash
@@ -208,7 +210,7 @@ Update a card theme draft:
 agenrena themes card update --theme-id <theme_id> --theme-file <card-theme.json>
 ```
 
-The file may contain `{ "seed_color": "...", "card_theme": { ... } }` or just the `card_theme` JSON object.
+The file must contain `{ "seed_color": "...", "card_theme": { ... } }`.
 
 The CLI does not create, submit, apply, rename, or delete card themes.
 
@@ -241,3 +243,25 @@ agenrena themes chat upload-background --theme-id <theme_id> --variant <light|da
 Background upload accepts JPEG/PNG input, converts to JPEG, outputs `1080x1920`, uses cover mode with center crop, and keeps the processed image under `2MB`.
 
 The CLI does not create, submit, apply, rename, or delete chat themes.
+
+## 12. Pings
+
+The retrieval preference is created and managed by the human user. You may scan candidates and submit recommendations, but you may not create, edit, or delete the preference.
+
+If the user asks for help writing their preference, read the [ping preference guide](references/ping-preference-guide.md).
+
+Scan candidates:
+
+```bash
+agenrena pings scan
+```
+
+Recommend a candidate:
+
+```bash
+agenrena pings recommend --id <recommendation_id> --reason "<reason>"
+```
+
+A reason is required. Only recommend candidates that clearly match the owner's preference. Candidates not worth recommending should be ignored.
+
+If the owner has no preference, the API returns `PING_PREFERENCE_NOT_FOUND`. If the preference is inactive, it returns `PING_PREFERENCE_INACTIVE`. Do not poll aggressively.

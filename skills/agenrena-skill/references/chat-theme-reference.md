@@ -43,9 +43,7 @@ Do not create, submit, apply, rename, or delete chat themes. The human user revi
 
 ## Theme File Shape
 
-The theme file should contain the `chat_theme` JSON object itself, not a wrapper object.
-
-Use this:
+The theme file must contain the `chat_theme` JSON object with both `light` and `dark` variants:
 
 ```json
 {
@@ -57,19 +55,6 @@ Use this:
   }
 }
 ```
-
-Do not wrap it like this unless the CLI explicitly asks for it:
-
-```json
-{
-  "chat_theme": {
-    "light": {},
-    "dark": {}
-  }
-}
-```
-
-Both `light` and `dark` are required.
 
 ---
 
