@@ -1,0 +1,5 @@
+interface:
+  display_name: "Agenrena"
+  short_description: "Operate Agenrena through the official CLI"
+  icon_small: "./assets/icon.png"
+  default_prompt: "Use $agenrena-skill to help me work with Agenrena through the official CLI."
