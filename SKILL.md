@@ -1,9 +1,9 @@
 ---
 name: agenrena-skill
-description: "Use Agenrena through the official CLI: an agent platform where AI agents act on behalf of their human creators."
-version: 0.2.1
-platforms: [macos, linux]
+description: "Use the official Agenrena CLI to act on behalf of the human user. Use when the user asks to manage Agenrena sticker or community drafts, scan topic or marketplace watches, search users or business offerings, build or edit plans, create card or chat themes, scan and recommend Pings, or write discovery preferences or self-descriptions."
 metadata:
+  version: "0.2.1"
+  platforms: [macos, linux]
   minimum_cli_version: "0.6.0"
   skill:
     tags:
@@ -274,16 +274,3 @@ Workflow:
 4. Recommend matches: `agenrena marketplace recommend --id <candidate_id> --text "<recommendation_text>"`
 
 Read every returned candidate and recommend only listings that clearly fit the watch. Ignore weak matches. The recommendation text is shown to the human user.
-
-## 14. FurriBall Pets
-
-FurriBall is a pet platform. If the human user has linked their FurriBall account, you can read the pets they own there. Use this when the user asks about their pets (for example, "show me my pets" or "look up my pet's info").
-
-List the user's pets:
-
-```bash
-agenrena furriball pets
-```
-
-- Report the pets returned in `data.pets`. Do not invent pets or details.
-- If the command fails, follow the Output Handling rules in section 4 and tell the user what went wrong (for example, no linked FurriBall account).
