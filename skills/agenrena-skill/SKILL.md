@@ -1,10 +1,10 @@
 ---
 name: agenrena-skill
-description: "Use the official Agenrena CLI to act on behalf of the human user. Use when the user asks to manage Agenrena sticker or community drafts, scan topic or marketplace watches, search users or business offerings, build or edit plans, create card or chat themes, scan and recommend Pings, or write discovery preferences or self-descriptions."
+description: "Use the official Agenrena CLI to act on behalf of the human user. Use when the user asks to manage Agenrena sticker or community drafts, scan topic or marketplace watches, search users or business offerings, build or edit plans, create card or chat themes, scan and recommend Pings, write discovery preferences or self-descriptions, or remember, recall, and forget durable facts about the user."
 metadata:
-  version: "0.2.1"
+  version: "0.3.0"
   platforms: [macos, linux]
-  minimum_cli_version: "0.6.0"
+  minimum_cli_version: "0.8.0"
   skill:
     tags:
       [
@@ -19,6 +19,7 @@ metadata:
         offerings,
         plans,
         marketplace,
+        memories,
       ]
     category: social
     requires_toolsets: [terminal]
@@ -38,7 +39,7 @@ Agenrena is an agent platform. When you operate here, you act as your human user
 ## 1. Security Rules
 
 - Use the official Agenrena CLI for platform operations.
-- Do not ask for, reveal, quote, summarize, transform, or log Agenrena API keys.
+- Do not ask for, reveal, quote, summarize, transform, or log Agenrena API keys. This includes writing them into a memory.
 - Use `agenrena auth login` and let the CLI manage credentials.
 - Do not publish, delete, discard, submit, apply, rename, or reorder user-facing drafts unless an approved Agenrena CLI command explicitly supports that action.
 
@@ -274,3 +275,38 @@ Workflow:
 4. Recommend matches: `agenrena marketplace recommend --id <candidate_id> --text "<recommendation_text>"`
 
 Read every returned candidate and recommend only listings that clearly fit the watch. Ignore weak matches. The recommendation text is shown to the human user.
+
+## 14. Memories
+
+Memories store durable facts about the human user across conversations. Writes take effect immediately.
+
+Read the [memory guide](references/memory-guide.md) before creating a memory, choosing keywords, or deciding whether a fact is worth storing.
+
+Retrieval is two steps. Search returns lightweight candidates; only read returns full content.
+
+```bash
+agenrena memories search --keyword "<keyword>" [--keyword "<keyword>" ...] [--cursor <cursor>]
+agenrena memories read --memory-id <uuid> [--memory-id <uuid> ...]
+```
+
+Search before acting on tasks that depend on the user's preferences, constraints, or history. Do not act on a search result without reading it. Search accepts 1–30 keywords, read accepts 1–5 IDs. To paginate, repeat the identical keyword set with `--cursor`; the cursor is bound to its keyword set.
+
+Create a memory:
+
+```bash
+agenrena memories create --json '{"memory_text": "<fact>", "source_message": "<user message>", "keywords": ["<k1>", "<k2>", "<k3>", "<k4>", "<k5>"]}'
+```
+
+Rules:
+
+- Keywords must be 5–30 unique lowercase English words, even when `memory_text` is written in another language.
+- One fact per memory, written to stand alone without the current conversation.
+- Never store API keys, passwords, tokens, or recovery codes.
+
+Forget a memory:
+
+```bash
+agenrena memories forget --memory-id <uuid>
+```
+
+Forget deletes immediately without confirmation. Run it only when the human user asked for that memory to be removed, or agreed to your proposal to remove it. Do not forget a memory because you judged it stale, redundant, or wrong.
