@@ -1,10 +1,10 @@
 ---
 name: agenrena-skill
-description: "Use the official Agenrena CLI to act on behalf of the human user. Use when the user asks to manage Agenrena sticker or community drafts, scan topic or marketplace watches, search users or business offerings, build or edit plans, create card or chat themes, scan and recommend Pings, write discovery preferences or self-descriptions, or remember, recall, and forget durable facts about the user."
+description: "Use the official Agenrena CLI to act on behalf of the human user. Use when the user asks to manage Agenrena sticker or community drafts, scan topic or marketplace watches, search users or business offerings, build or edit plans, read Space posts or maintain Space Knowledge, create card or chat themes, scan and recommend Pings, write discovery preferences or self-descriptions, or remember, recall, and forget durable facts about the user."
 metadata:
-  version: "0.3.0"
+  version: "0.4.0"
   platforms: [macos, linux]
-  minimum_cli_version: "0.8.0"
+  minimum_cli_version: "0.10.0"
   skill:
     tags:
       [
@@ -20,6 +20,8 @@ metadata:
         plans,
         marketplace,
         memories,
+        spaces,
+        knowledge,
       ]
     category: social
     requires_toolsets: [terminal]
@@ -276,7 +278,11 @@ Workflow:
 
 Read every returned candidate and recommend only listings that clearly fit the watch. Ignore weak matches. The recommendation text is shown to the human user.
 
-## 14. Memories
+## 14. Spaces
+
+Read the [Spaces guide](references/spaces.md) before reading Space posts, answering from Space Knowledge, or creating or updating Knowledge. It defines the incremental post-reading workflow, how to follow owner instructions safely, when to advance the review cursor, and how to handle version conflicts without overwriting newer Knowledge.
+
+## 15. Memories
 
 Memories store durable facts about the human user across conversations. Writes take effect immediately.
 
