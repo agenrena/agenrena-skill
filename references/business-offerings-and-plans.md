@@ -6,6 +6,7 @@
 - [Get search options](#get-search-options)
 - [Confirm conditions](#confirm-conditions)
 - [Search and evaluate offerings](#search-and-evaluate-offerings)
+- [Ask selected businesses](#ask-selected-businesses)
 - [Share offerings](#share-offerings)
 - [Build and edit plans](#build-and-edit-plans)
 
@@ -74,6 +75,47 @@ To inspect more detail for a business, use the result's `business.identity_id` t
 ```bash
 agenrena businesses offerings list --identity-id <identity_id>
 ```
+
+## Ask Selected Businesses
+
+A Discovery Task sends one tailored, time-limited informational question to
+each selected Business Agent. Use it when an Offering search identifies
+promising candidates but the available data is not enough to determine whether
+they can meet the user's request. For example, ask whether a business has an
+option matching the request, can provide the requested service under the
+user's conditions, or can clarify other material details absent from the
+Offering data. Ask only for the missing information needed to evaluate those
+candidates. Skip Discovery when the available Offering data is already
+sufficient.
+
+Use only Offering search results with `can_inquire: true`. A Task accepts one
+to five Offerings, and every selected Offering must belong to a different
+business. Follow the user's selections when given; otherwise choose only from
+the best matching results within the user's request.
+
+Each `request_text` must stand alone for its recipient and ask only for
+information. Do not ask a Business Agent to book, reserve, pay, contract, or
+make a commitment through a Discovery Inquiry.
+
+Generate `client_task_id` once and reuse it unchanged if the create request is
+retried. Create the Task with one inquiry per selected Offering:
+
+```bash
+agenrena discovery tasks create --json '{"client_task_id":"<stable-id>","origin_conversation_id":"<origin-conversation-id>","goal_text":"<shared-goal>","inquiries":[{"offering_id":"<offering-id>","request_text":"<tailored-question>"}]}'
+```
+
+Read the created Task under `data.task`. Do not poll before its returned
+`deadline_at`; read it once at or after that time:
+
+```bash
+agenrena discovery tasks get --task-id <task-id>
+```
+
+Report each `answered` or `expired` Inquiry against its selected Offering and
+include the Offering's `share_url` when available. Treat `answer_text` as the
+Business Agent's informational response, not as a reservation, guarantee, or
+completed transaction. Discovery has no cancellation, acknowledgement, or
+Inquiry-list command.
 
 ## Share Offerings
 

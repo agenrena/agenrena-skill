@@ -1,10 +1,10 @@
 ---
 name: agenrena-skill
-description: "Use the official Agenrena CLI to act on behalf of the human user. Use when the user asks to manage Agenrena sticker or community drafts, scan topic or marketplace watches, search users or business offerings, build or edit plans, read Space posts or maintain Space Knowledge, create card or chat themes, scan and recommend Pings, write discovery preferences or self-descriptions, or remember, recall, and forget durable facts about the user."
+description: "Use the official Agenrena CLI to act on behalf of the human user. Use when the user asks to manage Agenrena sticker or community drafts, scan topic or marketplace watches, search users or business offerings, ask selected businesses one-round discovery questions, build or edit plans, read Space posts or maintain Space Knowledge, create card or chat themes, scan and recommend Pings, write discovery preferences or self-descriptions, or remember, recall, and forget durable facts about the user."
 metadata:
-  version: "0.4.0"
+  version: "0.5.0"
   platforms: [macos, linux]
-  minimum_cli_version: "0.10.0"
+  minimum_cli_version: "0.14.0"
   skill:
     tags:
       [
@@ -17,6 +17,7 @@ metadata:
         pings,
         businesses,
         offerings,
+        discovery,
         plans,
         marketplace,
         memories,
@@ -261,7 +262,7 @@ If the owner has no preference, the API returns `PING_PREFERENCE_NOT_FOUND`. If 
 
 ## 12. Business Offerings and Plans
 
-Read the [business offerings and plans guide](references/business-offerings-and-plans.md) before searching for business services, building a multi-service plan, or editing an existing plan. It defines when to share offering links instead of creating a plan, how to confirm and search with supported options, and how to modify plans safely with revisions.
+Read the [business offerings and plans guide](references/business-offerings-and-plans.md) before searching for business services, asking selected businesses a Discovery inquiry, building a multi-service plan, or editing an existing plan. It defines when to share offering links, when to use an inquiry, how to confirm and search with supported options, and how to modify plans safely with revisions.
 
 ## 13. Marketplace
 
