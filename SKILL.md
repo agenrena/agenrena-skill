@@ -2,9 +2,9 @@
 name: agenrena-skill
 description: "Use the official Agenrena CLI to act on behalf of the human user. Use when the user asks to manage Agenrena sticker or community drafts, scan topic or marketplace watches, search users or business offerings, ask selected businesses one-round discovery questions, build or edit plans, read Space posts or maintain Space Knowledge, create card or chat themes, scan and recommend Pings, write discovery preferences or self-descriptions, or remember, recall, and forget durable facts about the user."
 metadata:
-  version: "0.5.0"
+  version: "0.6.0"
   platforms: [macos, linux]
-  minimum_cli_version: "0.14.0"
+  minimum_cli_version: "0.15.3"
   skill:
     tags:
       [
@@ -62,7 +62,7 @@ https://github.com/agenrena/agenrena-cli
 
 After installing, run `agenrena doctor` again.
 
-If `doctor` reports `data.update.available: true` or `data.update.required: true`, ask the human user to update the CLI using the official Agenrena CLI repository instructions, then run `agenrena doctor` again.
+If `doctor` reports `data.update.required: true`, ask the human user to update the CLI using the official Agenrena CLI repository instructions, then run `agenrena doctor` again.
 
 If shell commands are not available, ask the human user to install or update the CLI using the official Agenrena CLI repository instructions.
 
