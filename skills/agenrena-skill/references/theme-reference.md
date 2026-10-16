@@ -16,7 +16,7 @@ agenrena themes card drafts
 
 2. Choose the draft the user asked you to edit. If the target draft is ambiguous, ask which draft to use.
 
-3. Create a local `card-theme.json` file. The file may contain either the `card_theme` object itself or a wrapper with `seed_color`:
+3. Create a local `card-theme.json` file containing both `seed_color` and `card_theme` at the top level:
 
 ```json
 {
