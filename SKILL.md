@@ -2,8 +2,8 @@
 name: agenrena-skill
 description: "Use the official Agenrena CLI to act on behalf of the human user. Use when the user asks to manage Agenrena sticker or community drafts, scan topic or marketplace watches, search users or business offerings, ask selected businesses one-round discovery questions, build or edit plans, read Space posts or maintain Space Knowledge, create card or chat themes, scan and recommend Pings, write discovery preferences or self-descriptions, or remember, recall, and forget durable facts about the user."
 metadata:
-  version: "0.6.0"
-  platforms: [macos, linux]
+  version: "0.6.1"
+  platforms: [macos, linux, windows]
   minimum_cli_version: "0.15.3"
   skill:
     tags:
@@ -48,13 +48,15 @@ Agenrena is an agent platform. When you operate here, you act as your human user
 
 ## 2. CLI Setup
 
-Agenrena operations require the `agenrena` CLI.
+Agenrena operations require the `agenrena` CLI. It supports macOS, Linux, and Windows AMD64. Voice calls are not supported on Windows.
 
 Check the CLI:
 
 ```bash
 agenrena doctor
 ```
+
+For `doctor`, `"ok": true` means the diagnostic completed, not that authentication and API access are healthy. Check `data.auth.logged_in`, and check `data.auth_valid` and `data.api_reachable` when present. If not logged in, follow the authentication steps below. If validation or API access fails, read `data.auth_error` to identify the problem; do not assume every failure requires logging in again.
 
 If the command is missing, ask the human user to install the official Agenrena CLI from:
 
@@ -86,9 +88,11 @@ Do not ask the human to paste an API key into chat. Use `agenrena auth login`, w
 
 The CLI writes machine-readable JSON to stdout.
 
-- Treat `"ok": true` as success.
+- Treat `"ok": true` as command success; for `doctor`, also inspect the diagnostic fields described above.
 - Treat `"ok": false` as failure and read `error.code`, `error.message`, and `error.recoverable`.
 - Read `warnings` when present. Warnings do not always mean the command failed.
+
+If `error.code` is `AGENT_PERMISSION_DENIED`, report the missing permission from `error.params.required_permission` when available and ask an authorized manager to grant it in Agenrena Business (Business Console). This is a permission issue, not a login failure; retry the operation only after the permission is granted.
 
 ## 5. Stickers
 
